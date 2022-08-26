@@ -124,14 +124,7 @@ dmypy.json
 .pyre/
 *.swp
 debug/
-data/
 .idea/
-*.png
-*.jpg
-*.PNG
-*.JPEG
-*.JPG
-*.PDF
 *.t7
 *.html
 output
@@ -144,14 +137,10 @@ tests/table_kv
 model
 config.json
 
-list_dir.py
+# list_dir.py
 # directory
 runs/
 log/
 pretrained/
 apex/
 results/
-
-#bash file
-run.sh
-test.sh
