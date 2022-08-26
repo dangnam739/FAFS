@@ -1,0 +1,59 @@
+MODEL:
+  BACKBONE:
+    # TYPE: "R-DL-101-C1-C5-FREEZEBN"
+    TYPE: "MiT-B5"
+    PRETRAINED: True
+  DECODER:
+    # TYPE: "DeepLabV2Dedoder"
+    TYPE: "SegFormerDecoder"
+  PREDICTOR:
+    TYPE: "UpsamplePredictor"
+    NUM_CLASSES: 2
+    LOSS: "CrossEntropy"
+TRAIN:
+  ITER_VAL: 50
+  EPOCHES: 8
+  OPTIMIZER: "Adam"
+  LR: 0.0001
+  BATCHSIZE: 6
+  ITER_REPORT: 10
+  SIZE: [512,512]
+  SCHEDULER: "CosineAnnealingLR_with_Restart"
+  COSINEANNEALINGLR:
+    T_MAX: 8
+    T_MULT: 1.0
+  SAVE_ALL: False
+  MULTI_SCALE: True
+  SCALES: [0.75, 1, 1.25]
+DATASET:
+  TYPE: "PolypWLIDataset"
+  ANNS: "data/wli_train.json"
+  IMAGEDIR: "/home/admin_mcn/namkd/polyp_data/WLI"
+  USE_AUG: True
+  # USE_FFT: True
+  VAL:
+    TYPE: "PolypBLIDataset"
+    ANNS: "data/bli_val.json"
+    IMAGEDIR: "/home/admin_mcn/namkd/polyp_data/BLI"
+    # TYPE: "PolypWLIDataset"
+    # ANNS: "data/wli_train.json"
+    # IMAGEDIR: "/home/admin_mcn/namkd/polyp_data/WLI"
+    RESIZE_SIZE: [512,512]
+  # TARGET:
+  #   TYPE: "MsCityscapesDataset"
+  #   ANNS: "data/cityscapes_train.json"
+  #   IMAGEDIR: "/home/nav/namkd/datasets/cityscapes"
+  #   ENT_LOSS_WEIGHT: 0.005
+TEST:
+  # USE_MST: True
+  # RESIZE_SIZE: [[1024, 512], [1280, 640], [1536, 768], [1800, 900], [2048, 1024]]
+
+  RESIZE_SIZE: [[512,512]]
+
+  # RESIZE_SIZE: [[2048, 1024]]
+  # EXTRACT_CONFUSION_MATRIX: True
+
+  # RESIZE_SIZE: [[2048, 1024]]
+  # VISUALIZE: True
+  # VISUALIZE_DIR: '/home/nav/namkd/rnd-domain-adaptation/results/visualize/test_visualize/sl_fft_update_pl_0210'
+WORK_DIR: "log/synthia/source_only"

@@ -1,0 +1,51 @@
+MODEL:
+  BACKBONE:
+    TYPE: "R-DL-101-C1-C5-FREEZEBN"
+    PRETRAINED: True
+  DECODER:
+    TYPE: "DeepLabV2Dedoder"
+  PREDICTOR:
+    TYPE: "UpsamplePredictor"
+    NUM_CLASSES: 19
+    LOSS: "CrossEntropy"
+TRAIN:
+  ITER_VAL: 500
+  EPOCHES: 8
+  OPTIMIZER: "Adam"
+  LR: 0.0001
+  BATCHSIZE: 8
+  ITER_REPORT: 100
+  SCHEDULER: "CosineAnnealingLR_with_Restart"
+  COSINEANNEALINGLR:
+    T_MAX: 8
+    T_MULT: 1.0
+  SAVE_ALL: False
+DATASET:
+  TYPE: "MsSYNTHIADataset"
+  ANNS: "data/synthia_train.json"
+  IMAGEDIR: "/home/nav/namkd/datasets/synthia"
+  USE_AUG: True
+  # USE_FFT: True
+  VAL:
+    TYPE: "CityscapesDataset"
+    ANNS: "data/cityscapes_val.json"
+    IMAGEDIR: "/home/nav/namkd/datasets/cityscapes"
+    RESIZE_SIZE: [1024, 512]
+  # TARGET:
+  #   TYPE: "MsCityscapesDataset"
+  #   ANNS: "data/cityscapes_train.json"
+  #   IMAGEDIR: "/home/nav/namkd/datasets/cityscapes"
+  #   ENT_LOSS_WEIGHT: 0.005
+TEST:
+  # USE_MST: True
+  # RESIZE_SIZE: [[1024, 512], [1280, 640], [1536, 768], [1800, 900], [2048, 1024]]
+
+  RESIZE_SIZE: [[1024, 512], [2048, 1024]]
+
+  # RESIZE_SIZE: [[2048, 1024]]
+  # EXTRACT_CONFUSION_MATRIX: True
+
+  # RESIZE_SIZE: [[2048, 1024]]
+  # VISUALIZE: True
+  # VISUALIZE_DIR: '/home/nav/namkd/rnd-domain-adaptation/results/visualize/test_visualize/sl_fft_update_pl_0210'
+WORK_DIR: "log/synthia/source_only"

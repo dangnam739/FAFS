@@ -1,0 +1,68 @@
+MODEL:
+  TYPE: "UDA_Segmentor"
+  BACKBONE:
+    # TYPE: "R-DL-101-C1-C5-FREEZEBN"
+    TYPE: "MiT-B5"
+    PRETRAINED: True
+  DECODER:
+    # TYPE: "DeepLabV2Dedoder"
+    TYPE: "SegFormerDecoder"
+  PREDICTOR:
+    TYPE: "UpsamplePredictor"
+    NUM_CLASSES: 2
+    LOSS: "CrossEntropy"
+  DISCRIMINATOR:
+    # TYPE: ["Origin-Predictor",]
+    TYPE: ["Pixel-Predictor",]
+    WEIGHT: [0.05,]
+    LR: [0.00002]
+    LOSS: "MSELoss"
+TRAIN:
+  ITER_VAL: 40
+  EPOCHES: 10
+  OPTIMIZER: "Adam"
+  LR: 0.00002
+  BATCHSIZE: 3
+  ITER_REPORT: 10
+  SIZE: [512,512]
+  SCHEDULER: "CosineAnnealingLR_with_Restart"
+  COSINEANNEALINGLR:
+    T_MAX: 4
+    T_MULT: 1.0
+  SAVE_ALL: False
+  MULTI_SCALE: True
+  SCALES: [0.75, 1, 1.25]
+DATASET:
+  TYPE: "PolypWLIDataset"
+  ANNS: "data/wli_train.json"
+  IMAGEDIR: "/home/admin_mcn/namkd/polyp_data/WLI"
+  USE_AUG: True
+  USE_FFT: True
+  FFT_MODE: "YCbCr-CbCr"
+  FFT_BETA: 0.05
+  VAL:
+    TYPE: "PolypBLIDataset"
+    ANNS: "data/bli_val.json"
+    IMAGEDIR: "/home/admin_mcn/namkd/polyp_data/BLI"
+    # TYPE: "PolypWLIDataset"
+    # ANNS: "data/wli_train.json"
+    # IMAGEDIR: "/home/admin_mcn/namkd/polyp_data/WLI"
+    RESIZE_SIZE: [512,512]
+  TARGET:
+    TYPE: "PolypBLIDataset"
+    ANNS: "data/bli_train.json"
+    IMAGEDIR: "/home/admin_mcn/namkd/polyp_data/BLI"
+    ENT_LOSS_WEIGHT: 0.005
+TEST:
+  # USE_MST: True
+  # RESIZE_SIZE: [[1024, 512], [1280, 640], [1536, 768], [1800, 900], [2048, 1024]]
+
+  # RESIZE_SIZE: [[512,512]]
+
+  # RESIZE_SIZE: [[2048, 1024]]
+  # EXTRACT_CONFUSION_MATRIX: True
+
+  RESIZE_SIZE: [[512, 512]]
+  VISUALIZE: True
+  VISUALIZE_DIR: '/home/admin_mcn/namkd/rnd-domain-adaptation/results/visualize/polyp/polyp_2705/vis_warmup'
+WORK_DIR: "log/gta5/warmup_at"
