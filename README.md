@@ -28,7 +28,12 @@ pip install -v --disable-pip-version-check --no-cache-dir --global-option="--cpp
 **Target domain**
 - [Cityscapes Dataset]( https://www.cityscapes-dataset.com/ )
 
-<!-- #### Download pretrained model -->
+#### Download pretrained model
+- Resnet101 pretrained models are from [Pytorch](https://pytorch.org/vision/stable/models.html)
+- Mix-Transformer (MiT) pretrained models are downloaded from [SegFormer](https://github.com/NVlabs/SegFormer) (
+[google drive](https://drive.google.com/drive/folders/1b7bwrInTW4VLEm27YawHOAMSMikga2Ia?usp=sharing) | 
+[onedrive](https://connecthkuhk-my.sharepoint.com/:f:/g/personal/xieenze_connect_hku_hk/EvOn3l1WyM5JpnMQFSEO5b8B7vrHw9kDaJGII-3N9KNhrg?e=cpydzZ)
+) and saved to `pretrained/`
 
 ### 2. Train
 Our experiment is implemented in Pytorch on a single Nvidia GeForce RTX 3090. The training process is divided into three phases: source (`batch_size=8`), warm-up (`batch_size=4`) and self-training (3 times with `batch_size=8`)
