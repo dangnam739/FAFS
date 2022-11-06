@@ -235,7 +235,7 @@ def train_net(net,
 
             loss_dict_src = net(images, labels)
             
-            loss_dict_tgt = net(t_images)
+            # loss_dict_tgt = net(t_images)
             
             if entW > 0: 
                 loss_dict_tgt = net(t_images)
