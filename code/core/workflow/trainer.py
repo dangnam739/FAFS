@@ -327,6 +327,7 @@ def train_net(net,
                         max_metrics = mean_iu
                         max_metrics_iter_cnt = "epoch{}_{}".format(epoch+1, iter_cnt)
                         metrics_decay_count = 0
+                        max_metrics_epoch = epoch
                     else:
                         metrics_decay_count += 1
                     if metrics_decay_count > early_stopping and early_stopping >= 0:
