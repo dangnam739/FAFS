@@ -1,6 +1,6 @@
 # FAFS:  Fine-grained Adversarial training with Fourier transform and improved Self-learning
 
-This is a [pytorch](http://pytorch.org/) implementation of [FAFS]().
+This is a [pytorch](http://pytorch.org/) implementation of [FAFS](https://ieeexplore.ieee.org/document/9888149).
 
 ## Set up
 ### 1. Prerequisites
